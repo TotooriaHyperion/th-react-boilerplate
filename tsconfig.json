@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"outDir": "./dist/",
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"module": "commonjs",
+		"target": "es6",
+		"jsx": "react",
+		"baseUrl": "./src",
+		"paths":{
+			"core":["src/core"],
+			"components":["src/components"],
+			"constants":["src/constants"],
+			"util":["src/util"],
+			"style":["src/scss"],
+			"img":["src/img"],
+			"lib":["src/lib"],
+			"containers":["src/containers"]
+		},
+		"rootDirs":["src"],
+		"experimentalDecorators":true
+	},
+	"include": [
+		"./src/**/*"
+	],
+	"awesomeTypescriptLoaderOptions": {
+		"useWebpackText": true
+	}
+}

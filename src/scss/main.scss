@@ -1,0 +1,67 @@
+body {
+	background-color: khaki;
+}
+
+// 公共样式
+
+// display
+.db {display: block;}
+.dib {
+	display: inline-block;}
+.dn {
+	display: none;}
+.di {
+	display: inline;}
+.dt {
+	display: table;}
+.dit {
+	display: inline-table;}
+.df {
+	display: flex;}
+.dif {
+	display: inline-flex;}
+.dri {
+	display: run-in;}
+.dli {
+	display: list-item;}
+// display
+
+// overflow
+.ofh {
+	overflow: hidden;}
+.ofv {
+	overflow: visible;}
+.ofa {
+	overflow: auto;}
+.ofs {overflow: scroll;}
+.ofin {overflow: initial;}
+.ofih {overflow: inherit;}
+// overflow
+
+// flex
+// 	flex-deraction
+.fdr {
+	flex-direction: row;}
+.fdrr {
+	flex-direction: row-reverse;}
+.fdc {
+	flex-direction: column;}
+.fdcr {
+	flex-direction: column-reverse;}
+.fdin {
+	flex-direction: initial;}
+.fdih {
+	flex-direction: inherit;}
+// 	flex-wrap
+.fwno {flex-wrap: nowrap};
+.fww {flex-wrap: wrap};
+.fwwr {flex-wrap: wrap-reverse;}
+
+// flex
+
+// 省略号
+.cut {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}

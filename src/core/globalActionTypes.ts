@@ -1,0 +1,2 @@
+export const TH_INIT_ASYNC_REDUCERS = "@@TH_INIT_ASYNC_REDUCERS";
+export const RESET_DATA = "RESET_DATA";
