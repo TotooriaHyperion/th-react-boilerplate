@@ -55,6 +55,7 @@ module.exports = {
 			{
 				test: /\.s?css$/,
 				loader: ExtractTextPlugin.extract({
+					fallbackLoader: "isomorphic-style-loader",
 					loader: ["css-loader", "autoprefixer-loader", "sass-loader"]
 				})
 			},
