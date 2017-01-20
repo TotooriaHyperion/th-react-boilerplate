@@ -22,28 +22,8 @@ app.get("/api", function (req, res) {
 let file = fs.readFileSync(path.resolve(__dirname,'../dist/index.html'),'utf-8');
 
 function renderFullPage(html, initialState) {
-	// return `
-  //   <!DOCTYPE html>
-  //   <html lang="en">
-  //   <head>
-  //     <meta charset="UTF-8">
-  //     <link href=/css/app-a4af5cd7.css rel=stylesheet>
-  //   </head>
-  //   <body>
-  //     <div id="app">
-  //       <div>
-  //         ${html}
-  //       </div>
-  //     </div>
-  //     <script>
-  //       window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
-  //     </script>
-  //     <script type=text/javascript src=/js/manifest-bc6a156f.js></script><script type=text/javascript src=/js/vendors-159950ce.js></script><script type=text/javascript src=/js/utils-3b1361af.js></script><script type=text/javascript src=/js/core-b945bfa8.js></script><script type=text/javascript src=/js/commons-461af955.js></script><script type=text/javascript src=/js/libs-60b82a2c.js></script><script type=text/javascript src=/js/components-b27bb5e7.js></script><script type=text/javascript src=/js/app-e9f44bf2.js></script></body></body>
-  //   </body>
-  //   </html>
-  // `;
-
-	return file.replace(/<div id=html style="display: none"><\/div>/,`<div>${html}</div>`).replace(/<div id=scripts style="display: none"><\/div>/,`<script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>`);
+	return file.replace(/<div id=html style="display: none"><\/div>/,`<div>${html}</div>`)
+		.replace(/<div id=scripts style="display: none"><\/div>/,`<script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>`);
 }
 
 app.use("/js",express.static(path.resolve(__dirname,"../dist/js")));
