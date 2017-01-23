@@ -53,8 +53,7 @@ app.use((req, res) => {
 					<Router {...renderProps}/>
 				</Provider>
 			);
-			let state = store.getState();
-			state.asyncReducer = state.asyncReducer.toJS();
+			let state = store.getState().toJS();
 
 			res.end(renderFullPage(html, state));
 		} else {

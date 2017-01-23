@@ -111,7 +111,7 @@ export default function connect(mapStateToProps?:Function,mapDispatchToProps?:Fu
 				super(props, context);
 				this.version = version;
 				this.store = props.store || context.store;
-				const storeState = this.store.getState()["asyncReducer"];
+				const storeState = this.store.getState().get("asyncReducer");
 				this.state = { storeState };
 				this.clearCache();
 			}
@@ -121,14 +121,14 @@ export default function connect(mapStateToProps?:Function,mapDispatchToProps?:Fu
 					return this.configureFinalMapState(store, props)
 				}
 
-				const state = store.getState()["asyncReducer"];
+				const state = store.getState().get("asyncReducer");
 				return this.doStatePropsDependOnOwnProps ?
 					this.finalMapStateToProps(state,store.getState(),  props) :
 					this.finalMapStateToProps(state,store.getState(),);
 			}
 
 			configureFinalMapState(store:any, props:any):any {
-				const mappedState = mapState(store.getState()["asyncReducer"], props);
+				const mappedState = mapState(store.getState().get("asyncReducer"), props);
 				const isFactory = typeof mappedState === 'function';
 
 				this.finalMapStateToProps = isFactory ? mappedState : mapState;
@@ -239,7 +239,7 @@ export default function connect(mapStateToProps?:Function,mapDispatchToProps?:Fu
 				if (!this.unsubscribe) {
 					return
 				}
-				const storeState = this.store.getState()["asyncReducer"];
+				const storeState = this.store.getState().get("asyncReducer");
 				const prevStoreState = this.state.storeState;
 				if (prevStoreState && storeState && (prevStoreState === storeState)) {
 					return

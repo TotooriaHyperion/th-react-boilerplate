@@ -97,6 +97,7 @@
     "@types/whatwg-fetch": "0.0.33",
     "compression": "^1.6.2",
     "express": "^4.14.0",
+    "normalize.css": "^5.0.0",
     "whatwg-fetch": "^2.0.1"
   }
 }

@@ -5,7 +5,7 @@ import { syncHistoryWithStore } from "react-router-redux";
 import { applyMiddleware } from 'redux';
 import { fromJS } from "immutable";
 import createActionBinder from "./bindActions";
-import createAsyncAddReducer from "./addReucers";
+import createAsyncAddReducer from "./addReducers";
 
 import 'babel-polyfill';
 // import saga from 'redux-saga';
@@ -49,8 +49,12 @@ export default function configureStore() {
 		defaultState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {};
 	}
 
-	if (defaultState.asyncReducer && !defaultState.asyncReducer.asImmutable) {
-		defaultState.asyncReducer = fromJS(defaultState.asyncReducer);
+	// if (defaultState.asyncReducer && !defaultState.asyncReducer.asImmutable) {
+	// 	defaultState.asyncReducer = fromJS(defaultState.asyncReducer);
+	// }
+
+	if(!defaultState.asImmutable) {
+		defaultState = fromJS(defaultState);
 	}
 
 
@@ -81,7 +85,11 @@ export default function configureStore() {
 
 
 
-	const history = process.env.IS_SERVER === "server" ? theHistory : syncHistoryWithStore(theHistory, store);
+	const history = process.env.IS_SERVER === "server" ? theHistory : syncHistoryWithStore(theHistory, store, {
+		selectLocationState (state) {
+			return state.get('routing');
+		}
+	});
 
 	store.bindActions = createActionBinder(store);
 	store.history = history;

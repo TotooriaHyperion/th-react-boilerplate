@@ -1,5 +1,8 @@
-import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { combineReducers } from 'redux-immutable';
+// import { routerReducer } from 'react-router-redux';
+import {
+	LOCATION_CHANGE
+} from 'react-router-redux';
 import * as Immutable from "immutable";
 let reducers:any = {};
 
@@ -20,9 +23,19 @@ function asyncReducer(state:any = Immutable.fromJS({}),action:any) {
 	return Immutable.is(prev, newState) ? state : state.set(namespace,newState);
 }
 
+function routing(state:any = Immutable.fromJS({
+	locationBeforeTransitions: null
+}), action:any)  {
+	if (action.type === LOCATION_CHANGE) {
+		return state.set('locationBeforeTransitions', action.payload);
+	}
+
+	return state;
+}
+
 const rootReducer = combineReducers({
 	asyncReducer:asyncReducer,
-	routing:routerReducer
+	routing:routing
 });
 
 export default {

@@ -5,7 +5,7 @@ import { App } from './app'
 import  store  from "core/"
 
 import "feature.js";
-import "style/main.scss";
+import "style/index.scss";
 
 ReactDOM.render((
 	<Provider  store={store}>
