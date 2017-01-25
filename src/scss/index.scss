@@ -1,2 +1,13 @@
+@charset "UTF-8";
+
+// normalize css
 @import "../../node_modules/normalize.css/normalize.css";
+
+// global css
 @import "./main.scss";
+
+// basic layout
+@import "./layout.scss";
+
+// theme config
+@import "./theme.scss";

@@ -44,6 +44,16 @@ class Hello extends React.Component<any, any> {
 					<button onClick={this.props.actions.decrement}>DECREMENT</button>
 				</p>
 				<p>{count}</p>
+
+				<div className="flextest">
+					{
+						[1,2,3,4,5,6].map(function (item,index) {
+							return (
+								<div className="item" key={index}>{item}</div>
+							)
+						})
+					}
+				</div>
 			</div>
 		);
 	}
