@@ -75,29 +75,34 @@ let settings = {
 				test: /\.jsx$/,
 				use: ['babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']})],
 			},
+			// {
+			// 	test: /\.s?css$/,
+			// 	loader: ExtractTextPlugin.extract({
+			// 		fallbackLoader: "style-loader",
+			// 		loader: ["css-loader", "autoprefixer-loader", "sass-loader"]
+			// 	})
+			// },
+			// for css hot load
 			{
 				test: /\.s?css$/,
-				loader: ExtractTextPlugin.extract({
-					fallbackLoader: "style-loader",
-					loader: ["css-loader", "autoprefixer-loader", "sass-loader"]
-				})
+				use: ["style-loader", "css-loader?importLoaders=1", "postcss-loader", "sass-loader"]
 			},
-			{test: /\.(png|jpg|jpeg|gif)$/, use: 'file-loader'},
+			{test: /\.(png|jpg|jpeg|gif)$/, use: 'url-loader?limit=6400&name=styles/images/[name].[ext]'},
 			{
 				test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
-				use: "url-loader?limit=10000&mimetype=application/font-woff&name=fonts/[name].[ext]"
+				use: "url-loader?limit=6400&mimetype=application/font-woff&name=fonts/[name].[ext]"
 			},
 			{
 				test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-				use: "url-loader?limit=10000&mimetype=application/octet-stream&name=fonts/[name].[ext]"
+				use: "url-loader?limit=6400&mimetype=application/octet-stream&name=fonts/[name].[ext]"
 			},
 			{
 				test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-				use: "file-loader?name=fonts/[name].[ext]"
+				use: "file-loader?limit=6400&name=fonts/[name].[ext]"
 			},
 			{
 				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-				use: "url-loader?limit=10000&mimetype=image/svg+xml&name=fonts/[name].[ext]"
+				use: "url-loader?limit=6400&mimetype=image/svg+xml&name=fonts/[name].[ext]"
 			}
 		]
 	},
