@@ -22,24 +22,24 @@ module.exports = {
 	target: 'node',
 	devtool: false,
 	entry: {
-		app: path.resolve(__dirname, "./renderServer.jsx")
+		app: path.resolve(__dirname, "../src/renderServer.jsx")
 	},
 	output: {
-		path: __dirname + '/bin',
+		path: path.resolve(__dirname, '../bin'),
 		filename: '[name].js'
 	},
 	externals: nodeModules,
 	resolve: {
 		extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
 		alias: {
-			core: path.resolve(__dirname, "./core"),
-			components: path.resolve(__dirname, "./components"),
-			constants: path.resolve(__dirname, "./constants"),
-			util: path.resolve(__dirname, "./util"),
-			style: path.resolve(__dirname, "./scss"),
-			img: path.resolve(__dirname, "./img"),
-			lib: path.resolve(__dirname, "./lib"),
-			containers: path.resolve(__dirname, "./containers")
+			core: path.resolve(__dirname, "../src/core"),
+			components: path.resolve(__dirname, "../src/components"),
+			constants: path.resolve(__dirname, "../src/constants"),
+			util: path.resolve(__dirname, "../src/util"),
+			style: path.resolve(__dirname, "../src/scss"),
+			img: path.resolve(__dirname, "../src/img"),
+			lib: path.resolve(__dirname, "../src/lib"),
+			containers: path.resolve(__dirname, "../src/containers")
 		},
 	},
 	module: {
@@ -89,7 +89,7 @@ module.exports = {
 			}
 		}),
 		new CleanPlugin(['bin'], {
-			root: path.resolve(__dirname, './'),
+			root: path.resolve(__dirname, '../'),
 			verbose: true,
 			dry: false
 		})

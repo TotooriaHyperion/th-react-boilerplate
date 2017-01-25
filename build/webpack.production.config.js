@@ -16,18 +16,18 @@ function getAllFileArray(dirname) {
 }
 
 let settings = {
-	devtool: "source-map",
+	devtool: "hidden-source-map",
 	entry: {
-		app: ['whatwg-fetch', path.resolve(__dirname, "./index.tsx")],
-		libs: [].concat(getAllFileArray(path.resolve(__dirname, './lib/'))),
-		commons: [].concat(getAllFileArray(path.resolve(__dirname, './util/')))
-			.concat(getAllFileArray(path.resolve(__dirname, './constants/')))
+		app: ['whatwg-fetch', path.resolve(__dirname, "../src/index.tsx")],
+		libs: [].concat(getAllFileArray(path.resolve(__dirname, '../src/lib/'))),
+		commons: [].concat(getAllFileArray(path.resolve(__dirname, '../src/util/')))
+			.concat(getAllFileArray(path.resolve(__dirname, '../src/constants/')))
 			.concat([]),
 		core: [
-			path.resolve(__dirname, "./core/index"),
-			path.resolve(__dirname, "./core/rootReducers"),
-			path.resolve(__dirname, "./core/ReduxConnector"),
-			path.resolve(__dirname, "./core/ReduxComponent")
+			path.resolve(__dirname, "../src/core/index"),
+			path.resolve(__dirname, "../src/core/rootReducers"),
+			path.resolve(__dirname, "../src/core/ReduxConnector"),
+			path.resolve(__dirname, "../src/core/ReduxComponent")
 		],
 		utils: [
 			'moment',
@@ -51,19 +51,19 @@ let settings = {
 		path: path.resolve(__dirname, "../dist"),
 		filename: '/js/[name]-[chunkhash:8].js',
 		chunkFilename: "/js/[id][chunkhash:8].js",
-		sourceMapFilename: "[file].map"
+		sourceMapFilename: "/thshr[file].map"
 	},
 	resolve: {
 		extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
 		alias: {
-			core: path.resolve(__dirname, "./core"),
-			components: path.resolve(__dirname, "./components"),
-			constants: path.resolve(__dirname, "./constants"),
-			util: path.resolve(__dirname, "./util"),
-			style: path.resolve(__dirname, "./scss"),
-			img: path.resolve(__dirname, "./img"),
-			lib: path.resolve(__dirname, "./lib"),
-			containers: path.resolve(__dirname, "./containers")
+			core: path.resolve(__dirname, "../src/core"),
+			components: path.resolve(__dirname, "../src/components"),
+			constants: path.resolve(__dirname, "../src/constants"),
+			util: path.resolve(__dirname, "../src/util"),
+			style: path.resolve(__dirname, "../src/scss"),
+			img: path.resolve(__dirname, "../src/img"),
+			lib: path.resolve(__dirname, "../src/lib"),
+			containers: path.resolve(__dirname, "../src/containers")
 		},
 	},
 	module: {
@@ -120,7 +120,7 @@ let settings = {
 		}),
 		new webpack.DefinePlugin({
 			"process.env": {
-				NODE_ENV: JSON.stringify("development"),
+				NODE_ENV: JSON.stringify("production"),
 				ROUTE_HISTORY: JSON.stringify("browser")
 			}
 		}),
@@ -141,7 +141,7 @@ let settings = {
 			minimize: true
 		}),
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, 'index.html'),
+			template: path.resolve(__dirname, '../src/index.html'),
 			title: "Learning React",
 			minify: {
 				removeAttributeQuotes: true
@@ -151,6 +151,7 @@ let settings = {
 		})
 	],
 	performance: {
+		// maxEntrypointSize: 400000,
 		hints: false
 	},
 	// externals: {

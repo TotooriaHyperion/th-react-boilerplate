@@ -28,18 +28,20 @@ body {
 	//align-items: center;
 }
 
-// mention: flex-grow and flex-shrink is targeted the size change, not final size.
+// mention: flex-grow and flex-shrink is target at the size change, not final size.
 
 .item {
 	width: 160px;
+	flex: 1;
 	//flex-grow: 1;
-	flex-shrink: 1;
+	//flex-shrink: 1;
 	order: 2;
 }
 
 .item:nth-child(2) {
+	flex: 2;
 	//flex-grow: 2;
-	flex-shrink: 2;
+	//flex-shrink: 2;
 	//flex-basis: 320px;
 	order: 1;
 }

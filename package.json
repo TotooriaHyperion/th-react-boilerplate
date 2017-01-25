@@ -5,12 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev_local": "node ./src/deploy_local.js && webpack-dev-server --hot --inline --port 9091 --config ./src/webpack.develop.config.js",
-    "dev_test": "node ./src/deploy_test.js && webpack-dev-server --hot --inline --port 9091 --config ./src/webpack.develop.config.js",
-    "build_test": "node ./src/deploy_test.js && webpack -d --config ./src/webpack.publish.config.js",
-    "build_release": "node ./src/deploy_release.js && webpack -p --config ./src/webpack.publish.config.js",
-    "build_prod": "node ./src/deploy_prod.js && webpack -p --config ./src/webpack.production.config.js",
-    "server_render": "npm run build_prod && node ./src/deploy_prod.js && webpack --config ./src/webpack.server.config.js && node ./src/bin/app.js"
+    "dev_local": "node ./build/deploy_local.js && webpack-dev-server --hot --inline --port 9091 --config ./build/webpack.develop.config.js",
+    "dev_test": "node ./build/deploy_test.js && webpack-dev-server --hot --inline --port 9091 --config ./build/webpack.develop.config.js",
+    "build_test": "node ./build/deploy_test.js && webpack -d --config ./build/webpack.publish.config.js",
+    "build_release": "node ./build/deploy_release.js && webpack -p --config ./build/webpack.publish.config.js",
+    "build_prod": "node ./build/deploy_prod.js && webpack -p --config ./build/webpack.production.config.js",
+    "server_render": "npm run build_prod && node ./build/deploy_prod.js && webpack --config ./build/webpack.server.config.js && node ./bin/app.js"
   },
   "author": "Totooria Hyperion",
   "license": "MIT",

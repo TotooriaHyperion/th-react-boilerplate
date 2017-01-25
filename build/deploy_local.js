@@ -6,4 +6,4 @@ const fs = require("fs");
 const path = require("path");
 let file = fs.readFileSync(path.resolve(__dirname,'./deploy_constants.js'),'utf-8');
 let newFile = file.replace(/\{orderJSHost\}/,'localhost/api/');
-fs.writeFileSync(path.resolve(__dirname,'./constants/constants.ts'),newFile);
+fs.writeFileSync(path.resolve(__dirname,'../src/constants/constants.ts'),newFile);

@@ -3,7 +3,7 @@
  */
 
 let _frontJSVersion = "{front_version}";
-let _orderJSHost = "localhost/api/";
+let _orderJSHost = "productionserver/api/";
 
 
 export const frontJSVersion = _frontJSVersion;
