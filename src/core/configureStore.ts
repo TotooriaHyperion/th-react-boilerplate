@@ -83,11 +83,18 @@ export default function configureStore() {
 
 	let reducers = reducerMethod.asyncReducers;
 
-
+	let prevRoutingState:any = defaultState.get('routing');
+	let prevRoutingStateJS:any;
 
 	const history = process.env.IS_SERVER === "server" ? theHistory : syncHistoryWithStore(theHistory, store, {
-		selectLocationState (state) {
-			return state.get('routing');
+		selectLocationState (state:any) {
+			const routingState = state.get('routing');
+
+			if (!routingState.equals(prevRoutingState)) {
+				prevRoutingState = routingState;
+				prevRoutingStateJS = routingState.toJS();
+			}
+			return prevRoutingStateJS;
 		}
 	});
 

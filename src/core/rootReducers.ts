@@ -23,11 +23,15 @@ function asyncReducer(state:any = Immutable.fromJS({}),action:any) {
 	return Immutable.is(prev, newState) ? state : state.set(namespace,newState);
 }
 
-function routing(state:any = Immutable.fromJS({
+const initialRouteState = Immutable.fromJS({
 	locationBeforeTransitions: null
-}), action:any)  {
+});
+
+function routing(state:any = initialRouteState, action:any)  {
 	if (action.type === LOCATION_CHANGE) {
-		return state.set('locationBeforeTransitions', action.payload);
+		return state.merge({
+			'locationBeforeTransitions': action.payload
+		});
 	}
 
 	return state;
@@ -41,5 +45,6 @@ const rootReducer = combineReducers({
 export default {
 	rootReducer,
 	asyncReducers:reducers,
+	initialRouteState
 	// addReducers
 }
