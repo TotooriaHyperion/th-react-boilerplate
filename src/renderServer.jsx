@@ -23,7 +23,7 @@ let file = fs.readFileSync(path.resolve(__dirname,'../dist/index.html'),'utf-8')
 
 function renderFullPage(html, initialState) {
 	return file.replace(/<div id=html style="display: none"><\/div>/,`<div>${html}</div>`)
-		.replace(/<div id=scripts style="display: none"><\/div>/,`<script>window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>`);
+		.replace(/<div id=scripts style="display: none"><\/div>/,`<script id="__initial_state__">window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};</script>`);
 }
 
 app.use("/js",express.static(path.resolve(__dirname,"../dist/js")));

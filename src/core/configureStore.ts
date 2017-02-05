@@ -47,6 +47,7 @@ export default function configureStore() {
 
 	if(process.env.IS_SERVER !== "server") {
 		defaultState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {};
+		window.document.getElementById("__initial_state__").outerHTML = "";
 	}
 
 	// if (defaultState.asyncReducer && !defaultState.asyncReducer.asImmutable) {
@@ -94,7 +95,9 @@ export default function configureStore() {
 				prevRoutingState = routingState;
 				prevRoutingStateJS = routingState.toJS();
 			}
-			return prevRoutingStateJS;
+			return prevRoutingStateJS || (routingState && routingState.toJS && routingState.toJS()) || {
+					locationBeforeTransitions: null
+				};
 		}
 	});
 
