@@ -47,7 +47,8 @@ export default function configureStore() {
 
 	if(process.env.IS_SERVER !== "server") {
 		defaultState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {};
-		window.document.getElementById("__initial_state__").outerHTML = "";
+		let dom = window.document.getElementById("__initial_state__");
+		dom && dom.outerHTML && (dom.outerHTML = "");
 	}
 
 	// if (defaultState.asyncReducer && !defaultState.asyncReducer.asImmutable) {
