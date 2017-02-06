@@ -4,6 +4,7 @@ import { hashHistory,browserHistory } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
 import { applyMiddleware } from 'redux';
 import { fromJS } from "immutable";
+import * as Immutable from "immutable";
 import createActionBinder from "./bindActions";
 import createAsyncAddReducer from "./addReducers";
 
@@ -77,7 +78,7 @@ export default function configureStore() {
 	const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 	const store = composeEnhancers()(createStoreWithMiddleware)(reducerMethod.rootReducer,defaultState);
 
-	let theHistory = process.env.ROUTE_HISTORY === 'hash' ? hashHistory : browserHistory;
+	let theHistory = browserHistory;
 
 	if(process.env.IS_SERVER === "server") {
 		theHistory = global.history = browserHistory;

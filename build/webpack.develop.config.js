@@ -72,7 +72,7 @@ let settings = {
 				use: ['react-hot-loader', 'babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']}), "awesome-typescript-loader"],
 			},
 			{
-				test: /\.jsx$/,
+				test: /\.jsx?$/,
 				use: ['babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']})],
 			},
 			// {
@@ -133,11 +133,12 @@ let settings = {
 			},
 			chunksSortMode: 'dependency',
 			inject: true
-		})
+		}),
 	],
 	devServer: {
 		hot: true,
-		inline: true
+		inline: true,
+		historyApiFallback: true
 	},
 	performance: {
 		hints: false

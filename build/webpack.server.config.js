@@ -49,7 +49,7 @@ module.exports = {
 				use: ['babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']}), "awesome-typescript-loader"],
 			},
 			{
-				test: /\.jsx$/,
+				test: /\.jsx?$/,
 				use: ['babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']})],
 			},
 			{
