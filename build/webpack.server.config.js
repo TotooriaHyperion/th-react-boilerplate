@@ -52,11 +52,30 @@ module.exports = {
 				test: /\.jsx?$/,
 				use: ['babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']})],
 			},
+			// 局部样式使用css-modules，全局样式不使用。
 			{
 				test: /\.s?css$/,
+				exclude: path.resolve(__dirname,"../src/scss"),
+				use: ["isomorphic-style-loader", {
+					loader: "css-loader",
+					options: {
+						importLoaders: 1,
+						modules: true,
+						localIdentName: "[name]__[local]"
+					}
+				}, "postcss-loader", "sass-loader"]
+			},
+			{
+				test: /\.s?css$/,
+				include: path.resolve(__dirname,"../src/scss"),
 				loader: ExtractTextPlugin.extract({
 					fallbackLoader: "isomorphic-style-loader",
-					loader: ["css-loader?importLoaders=1", "postcss-loader", "sass-loader"]
+					loader: [{
+						loader: "css-loader",
+						options: {
+							importLoaders: 1
+						}
+					}, "postcss-loader", "sass-loader"]
 				})
 			},
 			// 按原始名称打包压缩的字体文件

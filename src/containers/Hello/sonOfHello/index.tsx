@@ -2,12 +2,17 @@ import * as React from "react";
 
 import { fromJS } from "immutable";
 import { connect } from "react-redux";
-import Tag from "components/Tag";
 import { Link } from "react-router";
 import ReduxComponent from "core/ReduxComponent";
 // import { ReduxComponent } from "core/index";
 import r_index from "./reducers/index";
 import a_index from "./actions/index";
+
+// import * as HelloScss from "../Hello.scss";
+
+const HelloScss = require("../Hello.scss");
+
+console.log(HelloScss);
 
 const namespace = "Hello.sonOfHello";
 
@@ -93,16 +98,15 @@ class Hello extends React.Component<AllProps, undefined> {
 				</p>
 				<p>{_state.get("count")}</p>
 
-				<div className="flextest">
+				<div className={HelloScss.flextest}>
 					{
 						[1,2,3,4,5,6].map(function (item,index) {
 							return (
-								<div className="item" key={index}>{item}</div>
+								<div className={HelloScss.item} key={index}>{item}</div>
 							)
 						})
 					}
 				</div>
-				<Tag>I'm Tag</Tag>
 			</div>
 		);
 	}
