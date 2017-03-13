@@ -3,3 +3,5 @@ src/bin/
 node_modules/
 dist/
 bin/
+/test/e2e/reports/*
+/selenium/*

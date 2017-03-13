@@ -91,12 +91,12 @@ class Hello extends React.Component<AllProps, undefined> {
 				</p>
 				<p>{_state.get("test2") ? "TRUE" : "FALSE"}</p>
 				<p>
-					<button onClick={this.props.actions.increment}>INCREMENT</button>
+					<button className="e2e_inc" onClick={this.props.actions.increment}>INCREMENT</button>
 				</p>
 				<p>
-					<button onClick={this.props.actions.decrement}>DECREMENT</button>
+					<button className="e2e_dec" onClick={this.props.actions.decrement}>DECREMENT</button>
 				</p>
-				<p>{_state.get("count")}</p>
+				<p className="e2e_count">{_state.get("count")}</p>
 
 				<div className={HelloScss.flextest}>
 					{
