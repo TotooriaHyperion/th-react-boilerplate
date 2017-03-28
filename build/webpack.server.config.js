@@ -68,9 +68,9 @@ module.exports = {
 			{
 				test: /\.s?css$/,
 				include: path.resolve(__dirname,"../src/scss"),
-				loader: ExtractTextPlugin.extract({
-					fallbackLoader: "isomorphic-style-loader",
-					loader: [{
+				use: ExtractTextPlugin.extract({
+					fallback: "isomorphic-style-loader",
+					use: [{
 						loader: "css-loader",
 						options: {
 							importLoaders: 1

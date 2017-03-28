@@ -1,10 +1,8 @@
 "use strict";
-
 const webpack = require('webpack');
 const path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const fs = require("fs");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 function getAllFileArray(dirname) {
 	return fs.readdirSync(dirname).reduce(function (prev, current) {
@@ -16,9 +14,9 @@ function getAllFileArray(dirname) {
 }
 
 let settings = {
-	devtool: 'source-map',
+	devtool: "hidden-source-map",
 	entry: {
-		entry: ['whatwg-fetch', path.resolve(__dirname, "../src/main.tsx")],
+		app: ['whatwg-fetch', path.resolve(__dirname, "../src/main.tsx")],
 		libs: [].concat(getAllFileArray(path.resolve(__dirname, '../src/lib/'))),
 		commons: [].concat(getAllFileArray(path.resolve(__dirname, '../src/util/')))
 			.concat(getAllFileArray(path.resolve(__dirname, '../src/constants/')))
@@ -47,11 +45,6 @@ let settings = {
 			'react-router-redux',
 		],
 	},
-	output: {
-		publicPath: 'http://localhost:9091/',
-		filename: '[name].js',
-		chunkFilename: "[id].chunk.js"
-	},
 	resolve: {
 		extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
 		alias: {
@@ -69,20 +62,12 @@ let settings = {
 		rules: [
 			{
 				test: /\.tsx?$/,
-				use: ['react-hot-loader', 'babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']}), "awesome-typescript-loader"],
+				use: ['babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']}), "awesome-typescript-loader"],
 			},
 			{
 				test: /\.jsx?$/,
 				use: ['babel-loader?' + JSON.stringify({presets: ['react', 'es2015', 'stage-0']})],
 			},
-			// {
-			// 	test: /\.s?css$/,
-			// 	loader: ExtractTextPlugin.extract({
-			// 		fallbackLoader: "style-loader",
-			// 		loader: ["css-loader", "autoprefixer-loader", "sass-loader"]
-			// 	})
-			// },
-			// for css hot load
 			// 局部样式使用css-modules，全局样式不使用。
 			{
 				test: /\.s?css$/,
@@ -106,6 +91,7 @@ let settings = {
 					}
 				}, "postcss-loader", "sass-loader"]
 			},
+			// 按原始名称打包压缩的字体文件
 			{test: /\.(png|jpg|jpeg|gif)$/, use: 'url-loader?limit=6400&name=styles/images/[name].[ext]'},
 			{
 				test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
@@ -126,58 +112,19 @@ let settings = {
 		]
 	},
 	plugins: [
-		// new webpack.IgnorePlugin(/^react$/),
-		// new webpack.IgnorePlugin(/^react-dom$/),
-		// new webpack.IgnorePlugin(/^react-router$/),
 		// moment的国际化支持只保留中文和英文
 		new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|cn/),
-		// 抽出公共模块，manifest用来解决最后一个文件chunkhash不稳定的问题
-		new webpack.optimize.CommonsChunkPlugin({
-			names: ['components', 'libs', 'commons', 'core', 'utils', 'vendors', 'manifest'],
-			filename: "[name].js"
-		}),
-		// 抽出CSS
-		new ExtractTextPlugin("[name].css"),
 		new webpack.DefinePlugin({
 			"process.env": {
 				NODE_ENV: JSON.stringify("development"),
-				ROUTE_HISTORY: JSON.stringify("hash")
+				ROUTE_HISTORY: JSON.stringify("browser")
 			}
-		}),
-		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, '../index.html'),
-			title: "Learning React",
-			minify: {
-				removeAttributeQuotes: true
-			},
-			chunksSortMode: 'dependency',
-			inject: true
-		}),
+		})
 	],
-	devServer: {
-		hot: true,
-		inline: true,
-		historyApiFallback: true
-	},
 	performance: {
+		// maxEntrypointSize: 400000,
 		hints: false
-	},
-	// externals: {
-	// 	React: "React",
-	// 	react: "React",
-	// 	"window.react": "React",
-	// 	"window.React": "React",
-	// 	ReactDOM: "ReactDOM",
-	// 	reactDOM: "ReactDOM",
-	// 	"react-dom": "ReactDOM",
-	// 	"window.ReactDOM": "ReactDOM",
-	// 	"window.reactDOM": "ReactDOM",
-	// 	ReactRouter: "ReactRouter",
-	// 	reactRouter: "ReactRouter",
-	// 	"react-router": "ReactRouter",
-	// 	"window.ReactRouter": "ReactRouter",
-	// 	"window.reactRouter": "ReactRouter",
-	// }
+	}
 };
 
 module.exports = settings;

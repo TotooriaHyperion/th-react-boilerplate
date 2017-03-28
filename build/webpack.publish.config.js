@@ -18,7 +18,7 @@ function getAllFileArray(dirname) {
 let settings = {
 	devtool: "source-map",
 	entry: {
-		app: ['whatwg-fetch', path.resolve(__dirname, "../src/index.tsx")],
+		app: ['whatwg-fetch', path.resolve(__dirname, "../src/main.tsx")],
 		libs: [].concat(getAllFileArray(path.resolve(__dirname, '../src/lib/'))),
 		commons: [].concat(getAllFileArray(path.resolve(__dirname, '../src/util/')))
 			.concat(getAllFileArray(path.resolve(__dirname, '../src/constants/')))
@@ -92,9 +92,9 @@ let settings = {
 			{
 				test: /\.s?css$/,
 				include: path.resolve(__dirname,"../src/scss"),
-				loader: ExtractTextPlugin.extract({
-					fallbackLoader: "style-loader",
-					loader: [{
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: [{
 						loader: "css-loader",
 						options: {
 							importLoaders: 1
@@ -160,7 +160,7 @@ let settings = {
 			minimize: true
 		}),
 		new HtmlWebpackPlugin({
-			template: path.resolve(__dirname, '../src/index.html'),
+			template: path.resolve(__dirname, '../index.html'),
 			title: "Learning React",
 			minify: {
 				removeAttributeQuotes: true
