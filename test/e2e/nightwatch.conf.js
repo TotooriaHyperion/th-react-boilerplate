@@ -35,6 +35,12 @@ module.exports = {
 			globals: {
 				// devServerURL: 'http://localhost:' + (process.env.PORT || config.dev.port)
 				devServerURL: "http://localhost:9091/"
+			},
+			screenshots: {
+				enabled : true,
+				on_failure : true,
+				on_error : false,
+				path : path.resolve(__dirname,"./reports/screenshots")
 			}
 		},
 

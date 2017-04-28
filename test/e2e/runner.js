@@ -11,10 +11,13 @@ opts = opts.concat(['--config', path.resolve(__dirname, './nightwatch.conf.js')]
 
 const browsers = ['chrome', 'firefox', 'edge', 'ie', 'phantomjs'];
 
-browsers.forEach(function (item) {
-	let o = opts.concat(['--env', item]);
-	o = o.concat(['--reporter', path.resolve(__dirname, './html-reporter.js')]);
-	spawn.sync(path.resolve(__dirname, '../../node_modules/.bin/nightwatch'), o, {stdio: 'inherit'});
-	// exec("nightwatch " + o.join(" "));
-	// exec("nightwatch " + o.join(" "));
-});
+let o;
+o = opts.concat(['--env']);
+o = o.concat(browsers.join(","));
+// browsers.forEach(function (item) {
+// 	o.concat([item])
+// 	// exec("nightwatch " + o.join(" "));
+// 	// exec("nightwatch " + o.join(" "));
+// });
+o = o.concat(['--reporter', path.resolve(__dirname, './html-reporter.js')]);
+spawn.sync(path.resolve(__dirname, '../../node_modules/.bin/nightwatch'), o, {stdio: 'inherit'});

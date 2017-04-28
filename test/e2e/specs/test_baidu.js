@@ -21,7 +21,8 @@ module.exports = {
 		// browser.expect.element(".e2e_count").text.to.equal(count + 1);
 		// browser
 			.pause(1000)
-			.assert.title("人渣の本愿_百度搜索")
+			// .assert.title("人渣の本愿_百度搜索")
+			.assert.title("人渣的本愿_百度搜索")
 			.end()
 	}
 };
