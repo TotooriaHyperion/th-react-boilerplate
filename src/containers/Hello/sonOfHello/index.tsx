@@ -1,8 +1,9 @@
 import * as React from "react";
 
+import * as PropTypes from 'prop-types';
 import { fromJS } from "immutable";
 import { connect } from "react-redux";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import ReduxComponent from "core/ReduxComponent";
 // import { ReduxComponent } from "core/index";
 import r_index from "./reducers/index";
@@ -59,10 +60,10 @@ class Hello extends React.Component<AllProps, undefined> {
 		test2:false
 	};
 	static propTypes = {
-		msg:React.PropTypes.string
+		msg:PropTypes.string
 	};
 	static contextTypes = {
-		router: React.PropTypes.object.isRequired
+		router: PropTypes.object.isRequired
 	};
 	constructor(props:any,context:any) {
 		super(props,context)
@@ -70,7 +71,7 @@ class Hello extends React.Component<AllProps, undefined> {
 	render() {
 		let { _state } = this.props;
 		_state = _state || fromJS({});
-		const { location,param } = this.context.router;
+		const { location } = this.context.router.route;
 		console.log("render");
 		return (
 			<div>

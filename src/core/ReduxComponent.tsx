@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as PropTypes from 'prop-types'
 
 export default function ReduxComponent(option:any) {
 	let { namespace,reducers,actions } = option;
@@ -7,10 +8,10 @@ export default function ReduxComponent(option:any) {
 			static defaultProps:any;
 			static propTypes = Object.assign({},WrappedComponent.propTypes,{});
 			static contextTypes = Object.assign({},WrappedComponent.contextTypes,{
-				store:React.PropTypes.shape({
-					subscribe: React.PropTypes.func.isRequired,
-					dispatch: React.PropTypes.func.isRequired,
-					getState: React.PropTypes.func.isRequired
+				store:PropTypes.shape({
+					subscribe: PropTypes.func.isRequired,
+					dispatch: PropTypes.func.isRequired,
+					getState: PropTypes.func.isRequired
 				})
 			});
 			static childContextTypes = Object.assign({},WrappedComponent.childContextTypes,{});

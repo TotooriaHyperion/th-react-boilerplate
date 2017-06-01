@@ -1,7 +1,7 @@
 "use strict";
 import { compose,createStore } from 'redux';
-import { hashHistory,browserHistory } from "react-router";
-import { syncHistoryWithStore } from "react-router-redux";
+import { createHashHistory,createBrowserHistory,createMemoryHistory } from "history";
+import { routerMiddleware } from "react-router-redux";
 import { applyMiddleware } from 'redux';
 import { fromJS } from "immutable";
 import * as Immutable from "immutable";
@@ -60,6 +60,11 @@ export default function configureStore() {
 		defaultState = fromJS(defaultState);
 	}
 
+	let theHistory:any = createMemoryHistory();
+
+	if(process.env.IS_SERVER !== "server") {
+		theHistory = global.history = createBrowserHistory();
+	}
 
 	const composeEnhancers =
 		process.env.NODE_ENV !== 'production' &&
@@ -68,6 +73,11 @@ export default function configureStore() {
 			window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
 
 	let middlewares = [aMiddleware,promise];
+
+	if (process.env.IS_SERVER === "server") {
+		middlewares = [routerMiddleware(theHistory), ...middlewares];
+	}
+
 
 // if (process.env.NODE_ENV === `development`) {
 // 	const createLogger = require(`redux-logger`);
@@ -78,33 +88,27 @@ export default function configureStore() {
 	const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 	const store = composeEnhancers()(createStoreWithMiddleware)(reducerMethod.rootReducer,defaultState);
 
-	let theHistory = browserHistory;
-
-	if(process.env.IS_SERVER === "server") {
-		theHistory = global.history = browserHistory;
-	}
-
 	let reducers = reducerMethod.asyncReducers;
 
 	let prevRoutingState:any = defaultState.get('routing');
 	let prevRoutingStateJS:any;
 
-	const history = process.env.IS_SERVER === "server" ? theHistory : syncHistoryWithStore(theHistory, store, {
-		selectLocationState (state:any) {
-			const routingState = state.get('routing');
-
-			if (!routingState.equals(prevRoutingState)) {
-				prevRoutingState = routingState;
-				prevRoutingStateJS = routingState.toJS();
-			}
-			return prevRoutingStateJS || (routingState && routingState.toJS && routingState.toJS()) || {
-					locationBeforeTransitions: null
-				};
-		}
-	});
+	// const history = process.env.IS_SERVER === "server" ? theHistory : syncHistoryWithStore(theHistory, store, {
+	// 	selectLocationState (state:any) {
+	// 		const routingState = state.get('routing');
+	//
+	// 		if (!routingState.equals(prevRoutingState)) {
+	// 			prevRoutingState = routingState;
+	// 			prevRoutingStateJS = routingState.toJS();
+	// 		}
+	// 		return prevRoutingStateJS || (routingState && routingState.toJS && routingState.toJS()) || {
+	// 				locationBeforeTransitions: null
+	// 			};
+	// 	}
+	// });
 
 	store.bindActions = createActionBinder(store);
-	store.history = history;
+	store.history = theHistory;
 	store.addReducers = createAsyncAddReducer(reducers,store);
 
 	return store

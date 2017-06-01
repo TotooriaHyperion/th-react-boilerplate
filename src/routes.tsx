@@ -1,15 +1,12 @@
 import * as React from 'react';
-import { Route } from 'react-router';
+import {Switch, Router, Route} from 'react-router'
+import asyncRoute from "core/asyncRoute"
 
 const Routes = () => (
-	<div>
-		<Route path="/" getComponent={(nextState,cb) => (require as any).ensure([],(require:any)=>{
-					cb(null,require('./containers/Hello/index.tsx').default)
-				})} />
-		<Route path="/foo" getComponent={(nextState,cb) => (require as any).ensure([],(require:any)=>{
-					cb(null,require('./containers/Hello/index.tsx').default)
-				})} />
-	</div>
+	<Switch>
+		<Route path="/" component={asyncRoute(() => (require as any).ensure([],(require:any)=>require('./containers/Hello/index.tsx').default))} />
+		<Route path="/foo" component={asyncRoute(() => (require as any).ensure([],(require:any)=>require('./containers/Hello/index.tsx').default))} />
+	</Switch>
 );
 
 export default Routes;

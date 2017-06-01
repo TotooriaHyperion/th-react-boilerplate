@@ -49,9 +49,9 @@ let settings = {
 	},
 	output: {
 		path: path.resolve(__dirname, "../dist"),
-		filename: '/js/[name]-[chunkhash:8].js',
-		chunkFilename: "/js/[id][chunkhash:8].js",
-		sourceMapFilename: "/thshr[file].map"
+		filename: 'js/[name]-[chunkhash:8].js',
+		chunkFilename: "js/[id][chunkhash:8].js",
+		sourceMapFilename: "thshr/[file].map"
 	},
 	resolve: {
 		extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js"],

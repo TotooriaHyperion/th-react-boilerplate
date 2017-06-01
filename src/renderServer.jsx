@@ -1,10 +1,13 @@
 "use strict";
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { Router, match } from 'react-router';
+import { Router, match, StaticRouter } from 'react-router';
 import { Provider } from 'react-redux';
+import App from './app';
 import Routes from './routes';
 import configureStore from "./core/configureStore"
+
+const Layout = Routes();
 
 const express = require('express');
 const app = express();
@@ -31,13 +34,10 @@ app.use("/css",express.static(path.resolve(__dirname,"../dist/css")));
 app.use("/thshr",express.static(path.resolve(__dirname,"../dist/thshr")));
 
 app.use((req, res) => {
-	match({ routes:Routes(), location: req.url }, (err, redirectLocation, renderProps) => {
-		if (err) {
-			res.status(500).end(`Internal Server Error ${err}`);
-		} else if (redirectLocation) {
-			res.redirect(redirectLocation.pathname + redirectLocation.search);
-		} else if (renderProps) {
-			let store = configureStore();
+
+	const context = {};
+
+	let store = configureStore();
 
 			store.dispatch({
 				type:'TEST_INCREMENT_COUNT',
@@ -50,16 +50,43 @@ app.use((req, res) => {
 
 			const html = renderToString(
 				<Provider store={store}>
-					<Router {...renderProps}/>
+					<StaticRouter location={req.url} context={context}>
+						<App/>
+					</StaticRouter>
 				</Provider>
 			);
 			let state = store.getState().toJS();
-
 			res.end(renderFullPage(html, state));
-		} else {
-			res.status(404).end('Not found');
-		}
-	});
+
+	// match({ routes:Routes(), location: req.url }, (err, redirectLocation, renderProps) => {
+	// 	if (err) {
+	// 		res.status(500).end(`Internal Server Error ${err}`);
+	// 	} else if (redirectLocation) {
+	// 		res.redirect(redirectLocation.pathname + redirectLocation.search);
+	// 	} else if (renderProps) {
+	// 		let store = configureStore();
+	//
+	// 		store.dispatch({
+	// 			type:'TEST_INCREMENT_COUNT',
+	// 			namespace:'Hello.sonOfHello'
+	// 		});
+	// 		store.dispatch({
+	// 			type:'TEST_INCREMENT_COUNT',
+	// 			namespace:'Hello.sonOfHello'
+	// 		});
+	//
+	// 		const html = renderToString(
+	// 			<Provider store={store}>
+	// 				<Router {...renderProps}/>
+	// 			</Provider>
+	// 		);
+	// 		let state = store.getState().toJS();
+	//
+	// 		res.end(renderFullPage(html, state));
+	// 	} else {
+	// 		res.status(404).end('Not found');
+	// 	}
+	// });
 });
 
 app.listen(11345);
